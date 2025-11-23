@@ -3,11 +3,12 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 public class PasswordValidator {
+
     public static void main(String[] args) {
         String password = "MyPass123";
-
-        String regex = "^(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9]{8,16}$";
-
+        
+        String regex = "^(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9]{8,16}$";
+        
         try {
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(password);
@@ -21,7 +22,7 @@ public class PasswordValidator {
         } catch (PatternSyntaxException e) {
             System.err.println("Ошибка в регулярном выражении: " + e.getDescription());
         } catch (Exception e) {
-            System.err.println("Произошла ошибка: " + e.getMessage());
+            System.err.println("Произошла общая ошибка: " + e.getMessage());
         }
     }
 }
