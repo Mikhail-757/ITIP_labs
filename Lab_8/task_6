@@ -1,0 +1,63 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+class Person {
+    private String name;
+    private int age;
+
+    // Конструктор, геттеры и сеттеры опущены для краткости
+    public int getAge() { 
+        return age; //
+    }
+}
+
+public class StreamDemo {
+
+    /**
+     * Создание потока из списка, фильтрация положительных
+     * чисел и сбор в новый список
+     */
+    public static List<Integer> filterPositive(List<Integer> numbers) {
+        return numbers.stream() //
+                .filter(n -> n > 0) //
+                .collect(Collectors.toList()); //
+    }
+
+    /**
+     * Преобразование каждой строки в её длину и вычисление
+     * среднего значения
+     */
+    public static OptionalDouble averageStringLength(List<String> strings) {
+        return strings.stream() //
+                .mapToInt(String::length) // Преобразование в IntStream
+                .average();               // Терминальная операция
+    }
+
+    /**
+     * Сортировка по возрасту в порядке возрастания и выбор
+     * первых трёх
+     */
+    public static List<Person> topThreeByAge(List<Person> people) {
+        return people.stream() //
+                .sorted(Comparator.comparingInt(Person::getAge)) //
+                .limit(3) //
+                .collect(Collectors.toList()); //
+    }
+
+    /**
+     * Группировка строк по их длине
+     */
+    public static Map<Integer, List<String>> groupByLength(List<String> strings) {
+        return strings.stream() //
+                .collect(Collectors.groupingBy(String::length)); //
+    }
+
+    /**
+     * Параллельное вычисление суммы квадратов чисел
+     */
+    public static long sumOfSquaresParallel(List<Integer> numbers) {
+        return numbers.parallelStream() //
+                .mapToLong(n -> (long) n * n) // Возведение в квадрат с преобразованием в long
+                .sum(); //
+    }
+}
