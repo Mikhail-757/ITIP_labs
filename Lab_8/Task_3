@@ -1,0 +1,28 @@
+import java.util.List;
+import java.util.OptionalDouble;
+import java.util.stream.Collectors;
+
+public class StreamDemo {
+
+    /**
+     * Метод фильтрует список, оставляя только положительные числа.
+     */
+    public static List<Integer> filterPositive(List<Integer> numbers) {
+        // Создание потока из списка, фильтрация положительных
+        // чисел и сбор в новый список
+        return numbers.stream()
+                .filter(n -> n > 0)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Метод преобразует строки в их длины и вычисляет среднее значение.
+     */
+    public static OptionalDouble averageStringLength(List<String> strings) {
+        // Преобразование каждой строки в её длину и вычисление
+        // среднего значения
+        return strings.stream()
+                .mapToInt(String::length) // Преобразование в IntStream
+                .average();               // Терминальная операция
+    }
+}
