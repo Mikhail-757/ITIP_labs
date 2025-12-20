@@ -1,0 +1,12 @@
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class StreamDemo {
+    public static List<Integer> filterPositive(List<Integer> numbers) {
+        // Создание потока из списка, фильтрация положительных
+        // чисел и сбор в новый список
+        return numbers.stream()
+                .filter(n -> n > 0)
+                .collect(Collectors.toList());
+    }
+}
