@@ -1,0 +1,26 @@
+import java.util.List;
+import java.util.Comparator;
+import java.util.stream.Collectors;
+
+class Person {
+    private String name;
+    private int age;
+
+    // Конструктор, геттеры и сеттеры опущены для краткости
+    public int getAge() { return age; }
+}
+
+public class StreamDemo {
+    
+    // ... предыдущие методы (filterPositive, averageStringLength) ...
+
+    /**
+     * Сортировка по возрасту в порядке возрастания и выбор первых трёх
+     */
+    public static List<Person> topThreeByAge(List<Person> people) {
+        return people.stream()
+                .sorted(Comparator.comparingInt(Person::getAge))
+                .limit(3)
+                .collect(Collectors.toList());
+    }
+}
