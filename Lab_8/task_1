@@ -1,0 +1,39 @@
+import java.lang.annotation.*;
+import java.lang.reflect.Method;
+
+// Объявление аннотации
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Loggable {
+    String value() default "Method called";
+}
+
+// Класс, использующий аннотацию
+class Calculator {
+    @Loggable("Adding two numbers")
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    @Loggable // Используется значение по умолчанию
+    public int multiply(int a, int b) {
+        return a * b;
+    }
+}
+
+// Обработчик аннотации
+class AnnotationProcessor {
+    public static void process(Object obj) throws Exception {
+        Class<?> clazz = obj.getClass();
+        for (Method method : clazz.getDeclaredMethods()) {
+            if (method.isAnnotationPresent(Loggable.class)) {
+                Loggable loggable = method.getAnnotation(Loggable.class);
+                String message = loggable.value();
+                System.out.println("[LOG] " + message + ": " + method.getName());
+
+                // Можно добавить вызов оригинального метода с помощью invoke
+                // Object result = method.invoke(obj, args);
+            }
+        }
+    }
+}
